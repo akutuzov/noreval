@@ -3,8 +3,8 @@
 NorEval is a multi-task Norwegian language understanding and generation evaluation benchmark. 
 
 ## 🔥 Updates
-**`10.04.2025`**: 📕 Our pre-print is available on [arXiv](https://arxiv.org/abs/2504.07749)
-**`09.04.2025`**: 🚀 We release NorEval, including our [annotation guidelines](./guidelines/) and novel datasets ([NorRewrite-Instruct](https://huggingface.co/datasets/ltg/norrewrite-instruct) & [NorSummarize-Instruct](https://huggingface.co/datasets/ltg/norsummarize-instruct)).
+* **`10.04.2025`**: 📕 Our pre-print is available on [arXiv](https://arxiv.org/abs/2504.07749).
+* **`09.04.2025`**: 🚀 We release NorEval, including our [annotation guidelines](./guidelines/) and novel datasets ([NorRewrite-Instruct](https://huggingface.co/datasets/ltg/norrewrite-instruct) & [NorSummarize-Instruct](https://huggingface.co/datasets/ltg/norsummarize-instruct)).
 
 ## 📖 Contents
 
