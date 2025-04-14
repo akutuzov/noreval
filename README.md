@@ -3,6 +3,7 @@
 NorEval is a multi-task Norwegian language understanding and generation evaluation benchmark. 
 
 ## 🔥 Updates
+**`10.04.2025`**: 📕 Our pre-print is available on [arXiv](https://arxiv.org/abs/2504.07749)
 **`09.04.2025`**: 🚀 We release NorEval, including our [annotation guidelines](./guidelines/) and novel datasets ([NorRewrite-Instruct](https://huggingface.co/datasets/ltg/norrewrite-instruct) & [NorSummarize-Instruct](https://huggingface.co/datasets/ltg/norsummarize-instruct)).
 
 ## 📖 Contents
@@ -237,4 +238,11 @@ The optimal support of BERTScore in LM Evaluation Harness remains [an open issue
 
 # 📝 Cite Us
 
-TBA
+```
+@article{mikhailov2025noreval,
+  title={NorEval: A Norwegian Language Understanding and Generation Evaluation Benchmark},
+  author={Mikhailov, Vladislav and Enstad, Tita and Samuel, David and Farseth{\aa}s, Hans Christian and Kutuzov, Andrey and Velldal, Erik and {\O}vrelid, Lilja},
+  journal={arXiv preprint arXiv:2504.07749},
+  year={2025}
+}
+```
