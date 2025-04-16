@@ -31,18 +31,6 @@ NorEval is a multi-task Norwegian language understanding and generation evaluati
 
 We group our datasets into text classification, sentence ranking, sentence completion, multiple-choice question answering, generative question answering, and sequence-to-sequence generation tasks. We refer the reader to our paper for more details and describe our tasks below.
 
-* **Name**: a dataset name with a HuggingFace link.
-* **Bokmål**: the LM Evaluation Harness task name for the Norwegian Bokmål dataset.
-* **Nynorsk**: the LM Evaluation Harness task name for the Norwegian Nynorsk dataset, if available.
-* **k-shot**: the support for *k*-shot evaluation regimes with *k* > 0. We follow the original datasets' design and focus mainly on the zero-shot evaluation by default. 
-  * ✅ means that the user can run the evaluation in both zero-shot and *k*-shot regimes.
-  * ❌ denotes that only the zero-shot evaluation regime is available due to the lack of the training or validation set to sample the demonstration examples from. Technically, *k*-shot evaluation on the test set is possible using sampling without replacement, given that the model is not proprietary and not accessed via an API.
-* **Task type**: the task type.
-* **Task category**: the task category.
-
-<details>
-<summary><b>Tasks</b></summary>
-
 |Name  |Bokmål | Nynorsk  |*k*-shot | Task type  | Task category |
 |:---|:---|:---|:---|:---|:---|
 |[NoReC Sentence](https://huggingface.co/datasets/ltg/norec_sentence) |```norec_sentence```  | ❌ |✅ |Text classification| Sentiment analysis |
@@ -62,6 +50,18 @@ We group our datasets into text classification, sentence ranking, sentence compl
 |[Tatoeba (Bokmål/Nynorsk → English)](https://huggingface.co/datasets/Helsinki-NLP/tatoeba_mt) | ```tatoeba_nob_eng```| ```tatoeba_nno_eng```  |✅  |Sequence-to-sequence generation|Machine translation |
 |[NorRewrite-Instruct](https://huggingface.co/datasets/ltg/norrewrite-instruct) |```norrewrite_instruct```  |❌ |❌ |Sequence-to-sequence generation|Instruction following|
 |[NorSummarize-Instruct](https://huggingface.co/datasets/ltg/norsummarize-instruct) |```norsummarize_instruct``` |❌ |❌ |Sequence-to-sequence generation|Instruction following|
+
+<details open>
+<summary><b>Table description</b></summary>
+
+* **Name**: a dataset name with a HuggingFace link.
+* **Bokmål**: the LM Evaluation Harness task name for the Norwegian Bokmål dataset.
+* **Nynorsk**: the LM Evaluation Harness task name for the Norwegian Nynorsk dataset, if available.
+* **k-shot**: the support for *k*-shot evaluation regimes with *k* > 0. We follow the original datasets' design and focus mainly on the zero-shot evaluation by default. 
+  * ✅ means that the user can run the evaluation in both zero-shot and *k*-shot regimes.
+  * ❌ denotes that only the zero-shot evaluation regime is available due to the lack of the training or validation set to sample the demonstration examples from. Technically, *k*-shot evaluation on the test set is possible using sampling without replacement, given that the model is not proprietary and not accessed via an API.
+* **Task type**: the task type.
+* **Task category**: the task category.
 
 </details>
 
@@ -206,7 +206,7 @@ Here, we use the `--predict_only` argument and compute the performance metrics a
 ```bash
 lm_eval \
   --model hf \
-  --model_args pretrained=norallm/normistral-7b-warm \
+  --model_args pretrained=AI-Sweden-Models/Llama-3-8B \
   --tasks ask_gec \
   --include_path ./noreval/ \
   --output results/ask_gec/0-shot/ \
