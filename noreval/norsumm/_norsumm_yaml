@@ -1,6 +1,4 @@
-tag: norsumm_nno
 dataset_path: SamiaT/NorSumm
-dataset_name: nn
 training_split: null
 validation_split: null
 test_split: test

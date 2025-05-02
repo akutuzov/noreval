@@ -1,10 +1,9 @@
-tag: noropenbookqa_nno
 dataset_path: ltg/noropenbookqa
-dataset_name: nn
 output_type: multiple_choice
 training_split: train
 validation_split: null
 test_split: test
+process_docs: !function utils.filter_dataset
 doc_to_target: "{{choices.label.index(answer)}}"
 metric_list:
   - metric: acc

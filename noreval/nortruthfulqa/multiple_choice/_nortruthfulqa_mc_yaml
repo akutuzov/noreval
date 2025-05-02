@@ -1,6 +1,4 @@
-tag: nortruthfulqa_mc_nno
 dataset_path: ltg/nortruthfulqa_mc
-dataset_name: nn
 output_type: multiple_choice
 training_split: null
 validation_split: validation

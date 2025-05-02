@@ -1,14 +1,12 @@
-tag: nortruthfulqa_gen_nno
 dataset_path: ltg/nortruthfulqa_gen
-dataset_name: nn
 output_type: generate_until
 training_split: null
 validation_split: validation
 test_split: null
 num_fewshot: 0
 doc_to_target: " "
-process_docs: !function utils.process_docs_gen
-process_results: !function utils.process_results_gen
+process_docs: !function utils.process_docs
+process_results: !function utils.process_results
 generation_kwargs:
   until:
     - "\n"
