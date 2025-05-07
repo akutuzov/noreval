@@ -3,6 +3,7 @@
 NorEval is a multi-task Norwegian language understanding and generation evaluation benchmark. 
 
 ## 🔥 Updates
+* **`07.05.2025`**: 🫰 NorEval is now integrated into [LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness/tree/main/lm_eval/tasks/noreval).
 * **`10.04.2025`**: 📕 Our pre-print is available on [arXiv](https://arxiv.org/abs/2504.07749).
 * **`09.04.2025`**: 🚀 We release NorEval, including our [annotation guidelines](./guidelines/) and novel datasets ([NorRewrite-Instruct](https://huggingface.co/datasets/ltg/norrewrite-instruct) & [NorSummarize-Instruct](https://huggingface.co/datasets/ltg/norsummarize-instruct)).
 
@@ -51,7 +52,7 @@ We group our datasets into text classification, sentence ranking, sentence compl
 |[NorRewrite-Instruct](https://huggingface.co/datasets/ltg/norrewrite-instruct) |```norrewrite_instruct```  |❌ |❌ |Sequence-to-sequence generation|Instruction following|
 |[NorSummarize-Instruct](https://huggingface.co/datasets/ltg/norsummarize-instruct) |```norsummarize_instruct``` |❌ |❌ |Sequence-to-sequence generation|Instruction following|
 
-<details open>
+<details>
 <summary><b>Table description</b></summary>
 
 * **Name**: a dataset name with a HuggingFace link.
@@ -67,32 +68,17 @@ We group our datasets into text classification, sentence ranking, sentence compl
 
 ## 👨🏻‍💻 Installation and Usage
 
-Install LM Evaluation Harness and clone our repository.
-
-**Note:** NorEval can currently be used only *locally*. We are in the process of integrating our benchmark into LM Evaluation Harness.
+Install LM Evaluation Harness as described [here](https://github.com/EleutherAI/lm-evaluation-harness?tab=readme-ov-file#install).
 
 ```bash
-pip install --quiet https://github.com/EleutherAI/lm-evaluation-harness/archive/refs/tags/v0.4.8.tar.gz # current recent version
-git clone https://github.com/ltgoslo/noreval.git
+git clone --depth 1 https://github.com/EleutherAI/lm-evaluation-harness
+cd lm-evaluation-harness
+pip install -e .
 ```
-
-More detailed guidelines on how to use LM Evaluation Harness can be found [here](https://github.com/EleutherAI/lm-evaluation-harness/blob/main/docs/interface.md).
-
-The high-level framework usage requires the following arguments:
-* `--model`: the model type (e.g., `hf` and `vllm`). please refer to [the documentation on using vLLM](https://github.com/EleutherAI/lm-evaluation-harness/tree/main?tab=readme-ov-file#tensor--data-parallel-and-optimized-inference-with-vllm).
-* `--model_args`: the model type and the HuggingFace model name (e.g., `pretrained=norallm/normistral-7b-warm`).
-* `--tasks`: the name(s) of evaluation tasks (e.g., `norcommonsenseqa_nob`).
-* `--include_path`: a path to custom configuration files in the `.yaml` format (in our case, it is ```noreval```). this is used to add the NorEval tasks to the framework's task registry as available tasks.
-* `--log_samples`: allows to save the model inputs and outputs in a directory specified with the help of the `--output` argument.
-* `--output`: a path where high-level results will be saved. if one provides `--log_samples`, both model predictions and results will be saved in the specified directory.
-* `--write_out`: a complementary function, which prints out the format of the prompts and outputs.
-* `--show_config`: a complementary function, which prints out the configuration file.
-* `--batch_size`: the batch size. `"auto"` allows to automatically select the largest batch size that will fit in memory, speeding up evaluation.
-* `--num_fewshot`: the number of demonstrations used in the model input. the default value is `0`; the user can adjust this parameter based on the support for *k*-shot regimes (refer to [**🗃️ Tasks**](#🗃️-tasks)).
-* `--predict_only`: allows to *not* compute the performance metrics but *only* save the predictions. should be used together with `--log_samples`.
 
 ### Examples
 
+Detailed guidelines on how to use LM Evaluation Harness can be found [here](https://github.com/EleutherAI/lm-evaluation-harness/blob/main/docs/interface.md).
 
 <details>
 <summary><b>Example 1: Zero-shot evaluation on NorQuAD across five prompts.</b></summary>
@@ -102,7 +88,6 @@ lm_eval \
   --model hf \
   --model_args pretrained=norallm/normistral-7b-warm \
   --tasks norquad \
-  --include_path ./noreval/ \
   --output results/norquad/0-shot/\
   --log_samples \
   --show_config \
@@ -123,7 +108,6 @@ lm_eval \
   --model hf \
   --model_args pretrained=norallm/normistral-7b-warm \
   --tasks norquad \
-  --include_path ./noreval/ \
   --output results/norquad/0-shot/ \
   --log_samples \
   --show_config \
@@ -139,14 +123,13 @@ lm_eval \
 <details>
 <summary><b>Example 3: Zero-shot evaluation on NorQuAD using one prompt of interest.</b></summary>
 
-All prompts are numbered from `0` to `6`, and the corresponding configuration files for all supported prompts can be found [in the task directories](./noreval/).
+All prompts are numbered from `0` to `6`, and the corresponding configuration files for all supported prompts can be found [in the task directories](https://github.com/EleutherAI/lm-evaluation-harness/tree/main/lm_eval/tasks/noreval).
 
 ```bash
 lm_eval \
   --model hf \
   --model_args pretrained=norallm/normistral-7b-warm \
   --tasks norquad_p0 \
-  --include_path ./noreval/ \
   --output results/norquad_p0/0-shot/ \
   --log_samples \
   --show_config \
@@ -164,7 +147,7 @@ Consider an example of conducting an evaluation on a task category of interest, 
 
 **Step 1: Create a configuration file**
 
-Create a configuration file containing the name of the group and corresponding tasks and save it in the [`noreval`](./noreval/) folder.
+Create a configuration file containing the name of the group and corresponding tasks and save it in the `lm_eval/tasks/noreval` folder.
 
 ```bash
 group: norwegian_specific_and_world_knowledge_tasks_nob
@@ -178,14 +161,14 @@ aggregate_metric_list:
 
 **Step 2: Run the evaluation**
 
-Here, we are specifying the name of our created group as ```tasks```:
+Here, we are specifying the name of our created group as ```tasks``` and pass the `include_path` argument to ensure our group is registered:
 
 ```bash
 lm_eval \
   --model hf \
   --model_args pretrained=norallm/normistral-7b-warm \
   --tasks norwegian_specific_and_world_knowledge_tasks_nob \
-  --include_path ./noreval/ \
+  --include_path ./lm_eval/tasks/noreval/ \
   --output results/norwegian_specific_and_world_knowledge_tasks_nob/0-shot/ \
   --log_samples \
   --show_config \
@@ -208,7 +191,6 @@ lm_eval \
   --model hf \
   --model_args pretrained=AI-Sweden-Models/Llama-3-8B \
   --tasks ask_gec \
-  --include_path ./noreval/ \
   --output results/ask_gec/0-shot/ \
   --log_samples \
   --show_config \
@@ -230,9 +212,9 @@ lm_eval \
 </details>
 
 <details>
-<summary><b>Comment: Running BERTScore.</b></summary>
+<summary><b>Comment: BERTScore.</b></summary>
 
-The optimal support of BERTScore in LM Evaluation Harness remains [an open issue](https://github.com/EleutherAI/lm-evaluation-harness/issues/1302). We follow the proposed workaround for NorSumm but compute the BERTScore for the other sequence-to-sequence generation tasks *offline* after running the evaluation with the ```--predict_only``` argument.
+In our paper, we compute BERTScore for most sequence-to-sequence generation tasks *offline* after running the evaluation with the ```--predict_only``` argument for efficiency.
 
 </details>
 
